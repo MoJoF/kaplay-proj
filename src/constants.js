@@ -55,7 +55,7 @@ export const ATLAS_DATA = {
         width: TILE,
         height: TILE
     },
-    "stairs_mid": {
+    "stairs_mini": {
         x: 0,
         y: 32,
         width: TILE,
@@ -70,6 +70,12 @@ export const ATLAS_DATA = {
     "stairs_right": {
         x: 0,
         y: 64,
+        width: TILE,
+        height: TILE
+    },
+    "stairs_mid": {
+        x: 0,
+        y: 80,
         width: TILE,
         height: TILE
     },
