@@ -1,5 +1,6 @@
 import kaplay from "kaplay";
 import { TILE, SCALE, ATLAS_DATA } from "./constants";
+import playerInit from "./playerInit"
 
 export const k = kaplay({
   width: 768,
@@ -8,7 +9,6 @@ export const k = kaplay({
 });
 
 k.loadSpriteAtlas('https://pub-c6c043fab84f4b73a183f59fb6b061f0.r2.dev/winter_inside_game.png', ATLAS_DATA)
-
 
 k.scene("level_1", () => {
   k.addLevel([
@@ -106,30 +106,7 @@ k.scene("level_1", () => {
     }
   })
 
-  const player = k.add([
-    k.rect(TILE * SCALE, TILE * SCALE),
-    k.pos(100, 150),
-    k.color([200, 20, 0]),
-    k.body(),
-    k.area(),
-    "player"
-  ])
-
-  player.onKeyDown('w', () => {
-    player.move(0, -75)
-  })
-
-  player.onKeyDown('s', () => {
-    player.move(0, 75)
-  })
-
-  player.onKeyDown('a', () => {
-    player.move(-75, 0)
-  })
-
-  player.onKeyDown('d', () => {
-    player.move(75, 0)
-  })
+  const player = playerInit()
 
   let nearSnowman = false
 
@@ -187,7 +164,8 @@ k.scene("level_home", () => {
       "t": () => [
         k.sprite("tree"),
         k.scale(SCALE),
-        k.body()
+        k.body({ isStatic: true }),
+        k.area()
       ],
       "v": () => [
         k.sprite("snow_floor_1"),
@@ -198,30 +176,7 @@ k.scene("level_home", () => {
     }
   })
 
-  const player = k.add([
-    k.rect(TILE * SCALE, TILE * SCALE),
-    k.pos(450, 420),
-    k.color([200, 20, 0]),
-    k.body(),
-    k.area(),
-    "player"
-  ])
-
-  player.onKeyDown('w', () => {
-    player.move(0, -75)
-  })
-
-  player.onKeyDown('s', () => {
-    player.move(0, 75)
-  })
-
-  player.onKeyDown('a', () => {
-    player.move(-75, 0)
-  })
-
-  player.onKeyDown('d', () => {
-    player.move(75, 0)
-  })
+  const player = playerInit(450, 400)
 
   player.onCollide('to_level_1', () => k.go("level_1"))
 })
