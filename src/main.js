@@ -71,7 +71,7 @@ k.scene("level_1", () => {
 
   k.addLevel([
     "            ",
-    "t          t",
+    "t  l  l    t",
     "t         st",
     "t          t",
     "t          t",
@@ -102,6 +102,10 @@ k.scene("level_1", () => {
         k.area(),
         k.body({ isStatic: true }),
         "snowman"
+      ],
+      "l": () => [
+        k.sprite("torch"),
+        k.scale(SCALE),
       ]
     }
   })
