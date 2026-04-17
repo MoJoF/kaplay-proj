@@ -134,7 +134,7 @@ k.scene("level_1", () => {
   let nearSnowman = false
 
   player.onCollide("stairs_mini", () => k.debug.log("to underground"))
-  player.onCollide("arc", () => k.debug.log("to house"))
+  player.onCollide("arc", () => k.go("level_home"))
 
   player.onCollideUpdate("snowman", () => nearSnowman = true)
   player.onCollideEnd("snowman", () => nearSnowman = false)
@@ -144,6 +144,86 @@ k.scene("level_1", () => {
   })
 })
 
+k.scene("level_home", () => {
+  k.addLevel([
+    "_1_1__1__1__",
+    "_____1___1__",
+    "___1____1___",
+    "_1_______1__",
+    "___1__1____1",
+    "_1___1___1__",
+    "_1___1__1___",
+    "__1___1__1__",
+    "___1___1111_",
+  ], {
+    tileHeight: TILE * SCALE,
+    tileWidth: TILE * SCALE,
+    tiles: {
+      "_": () => [
+        k.sprite("snow_floor_1"),
+        k.scale(SCALE)
+      ],
+      "1": () => [
+        k.sprite("snow_floor_2"),
+        k.scale(SCALE)
+      ]
+    }
+  })
 
+  k.addLevel([
+    "tttttttttttt",
+    "t__________t",
+    "t__________t",
+    "t__________t",
+    "t__________t",
+    "t__________t",
+    "t__________t",
+    "t__________t",
+    "ttttttvvtttt",
+  ], {
+    tileHeight: TILE * SCALE,
+    tileWidth: TILE * SCALE,
+    tiles: {
+      "t": () => [
+        k.sprite("tree"),
+        k.scale(SCALE),
+        k.body()
+      ],
+      "v": () => [
+        k.sprite("snow_floor_1"),
+        k.scale(SCALE),
+        k.area(),
+        "to_level_1"
+      ]
+    }
+  })
+
+  const player = k.add([
+    k.rect(TILE * SCALE, TILE * SCALE),
+    k.pos(450, 420),
+    k.color([200, 20, 0]),
+    k.body(),
+    k.area(),
+    "player"
+  ])
+
+  player.onKeyDown('w', () => {
+    player.move(0, -75)
+  })
+
+  player.onKeyDown('s', () => {
+    player.move(0, 75)
+  })
+
+  player.onKeyDown('a', () => {
+    player.move(-75, 0)
+  })
+
+  player.onKeyDown('d', () => {
+    player.move(75, 0)
+  })
+
+  player.onCollide('to_level_1', () => k.go("level_1"))
+})
 
 k.go('level_1')
