@@ -36,12 +36,14 @@ k.scene("level_1", () => {
         k.sprite('top_left_arc'),
         k.area(),
         k.scale(SCALE),
+        k.body({ isStatic: true }),
         "arc"
       ],
       '}': () => [
         k.sprite('top_right_arc'),
         k.area(),
         k.scale(SCALE),
+        k.body({ isStatic: true }),
         "arc"
       ],
       '[': () => [
@@ -58,12 +60,10 @@ k.scene("level_1", () => {
       ],
       '_': () => [
         k.sprite('snow_floor_1'),
-        k.area(),
         k.scale(SCALE),
       ],
       '1': () => [
         k.sprite('snow_floor_2'),
-        k.area(),
         k.scale(SCALE),
       ],
     }
@@ -100,7 +100,8 @@ k.scene("level_1", () => {
         k.sprite("snowman"),
         k.scale(SCALE),
         k.area(),
-        k.body({ isStatic: true })
+        k.body({ isStatic: true }),
+        "snowman"
       ]
     }
   })
@@ -108,26 +109,41 @@ k.scene("level_1", () => {
   const player = k.add([
     k.rect(TILE * SCALE, TILE * SCALE),
     k.pos(100, 150),
-    k.color([200, 0, 0])
+    k.color([200, 20, 0]),
+    k.body(),
+    k.area(),
+    "player"
   ])
 
   player.onKeyDown('w', () => {
-    player.move(0, -10)
+    player.move(0, -75)
   })
 
   player.onKeyDown('s', () => {
-    player.move(0, 10)
+    player.move(0, 75)
   })
 
   player.onKeyDown('a', () => {
-    player.move(-10, 0)
+    player.move(-75, 0)
   })
 
   player.onKeyDown('d', () => {
-    player.move(10, 0)
+    player.move(75, 0)
+  })
+
+  let nearSnowman = false
+
+  player.onCollide("stairs_mini", () => k.debug.log("to underground"))
+  player.onCollide("arc", () => k.debug.log("to house"))
+
+  player.onCollideUpdate("snowman", () => nearSnowman = true)
+  player.onCollideEnd("snowman", () => nearSnowman = false)
+
+  player.onKeyPress("e", () => {
+    if (nearSnowman) k.debug.log("Этого снеговика слепили недавно.")
   })
 })
 
-k.go('level_1')
 
-// Теги "wall", "tree" не дают пройти игроку
+
+k.go('level_1')
