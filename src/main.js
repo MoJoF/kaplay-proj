@@ -5,10 +5,11 @@ import playerInit from "./playerInit"
 export const k = kaplay({
   width: 768,
   height: 576,
-  canvas: document.querySelector('canvas')
+  canvas: document.querySelector('canvas'),
+  debugKey: 'r'
 });
 
-k.loadSpriteAtlas('https://pub-c6c043fab84f4b73a183f59fb6b061f0.r2.dev/winter_inside_game.png', ATLAS_DATA)
+k.loadSpriteAtlas('/winter_inside_game.png', ATLAS_DATA)
 
 k.scene("level_1", () => {
   k.addLevel([
@@ -48,13 +49,13 @@ k.scene("level_1", () => {
       ],
       '[': () => [
         k.sprite('bottom_left_arc'),
-        k.area(),
+        k.area({ shape: new k.Rect(k.vec2(0, TILE - (TILE / 4)), TILE, TILE / 4) }),
         k.scale(SCALE),
         "arc"
       ],
       ']': () => [
         k.sprite('bottom_right_arc'),
-        k.area(),
+        k.area({ shape: new k.Rect(k.vec2(0, TILE - (TILE / 4)), TILE, TILE / 4) }),
         k.scale(SCALE),
         "arc"
       ],
@@ -114,7 +115,7 @@ k.scene("level_1", () => {
 
   let nearSnowman = false
 
-  player.onCollide("stairs_mini", () => k.debug.log("to underground"))
+  player.onCollide("stairs_mini", () => k.go("underground_level"))
   player.onCollide("arc", () => k.go("level_home"))
 
   player.onCollideUpdate("snowman", () => nearSnowman = true)
@@ -174,15 +175,44 @@ k.scene("level_home", () => {
       "v": () => [
         k.sprite("snow_floor_1"),
         k.scale(SCALE),
-        k.area(),
+        k.area({ shape: new k.Rect(k.vec2(0, TILE - (TILE / 4)), TILE, TILE / 4) }),
         "to_level_1"
       ]
     }
   })
 
-  const player = playerInit(450, 400)
+  const player = playerInit(410, 480)
 
-  player.onCollide('to_level_1', () => k.go("level_1"))
+  player.onCollide('to_level_1', () => k.go("level_1", { x: 280, y: 137 }))
 })
 
 k.go('level_1')
+
+k.scene("underground_level", () => {
+  k.addLevel([
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zffffffffffffffffffffffffffffffffffffffffffz",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+  ], {
+    tileHeight: TILE * SCALE,
+    tileWidth: TILE * SCALE,
+    tiles: {
+      "f": () => [
+        k.sprite("snow_floor_1"),
+        k.scale(SCALE)
+      ],
+      "z": () => [
+        k.sprite("snow_floor_1"),
+        k.scale(SCALE)
+      ],
+    }
+  })
+
+  const player = playerInit()
+})

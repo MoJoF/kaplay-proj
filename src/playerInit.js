@@ -7,7 +7,7 @@ export default function playerInit(x = 100, y = 150) {
         k.pos(x, y),
         k.color(200, 20, 0),
         k.body(),
-        k.area(),
+        k.area({ shape: new k.Rect(k.vec2(0, TILE * SCALE / 2), TILE * SCALE, TILE * 2) }),
         "player",
     ])
 
