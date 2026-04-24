@@ -190,29 +190,73 @@ k.go('level_1')
 
 k.scene("underground_level", () => {
   k.addLevel([
-    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zffffffffffffffffffffffffffffffffffffffffffz",
-    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+    "г----------]",
+    "fffffffffff|",
+    "iffffffffff|",
+    "iffffffffff|",
+    "iffffffffff|",
+    "iffffffffff|",
+    "iffffffffff|",
+    "iffffffffff|",
+    "L__________>"
   ], {
     tileHeight: TILE * SCALE,
     tileWidth: TILE * SCALE,
     tiles: {
       "f": () => [
-        k.sprite("snow_floor_1"),
+        k.sprite("tree_floor"),
         k.scale(SCALE)
       ],
-      "z": () => [
-        k.sprite("snow_floor_1"),
-        k.scale(SCALE)
+      "г": () => [
+        k.sprite("tree_wall_left_top"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "-": () => [
+        k.sprite("tree_wall_top"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "i": () => [
+        k.sprite("tree_wall_left"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "|": () => [
+        k.sprite("tree_wall_right"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "]": () => [
+        k.sprite("tree_wall_right_top"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "L": () => [
+        k.sprite("tree_wall_left_bottom"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      ">": () => [
+        k.sprite("tree_wall_right_bottom"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
+      ],
+      "_": () => [
+        k.sprite("tree_wall_bottom"),
+        k.scale(SCALE),
+        k.area(),
+        k.body({ isStatic: true })
       ],
     }
   })
 
-  const player = playerInit()
+  const player = playerInit(17, 20)
 })

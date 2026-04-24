@@ -19,6 +19,60 @@ export const ATLAS_DATA = {
         width: TILE,
         height: TILE
     },
+    "tree_floor": {
+        x: 16,
+        y: 64,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_top": {
+        x: 32,
+        y: 64,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_left": {
+        x: 48,
+        y: 64,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_bottom": {
+        x: 16,
+        y: 80,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_right": {
+        x: 32,
+        y: 80,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_right_bottom": {
+        x: 48,
+        y: 80,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_right_top": {
+        x: 16,
+        y: 96,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_left_top": {
+        x: 32,
+        y: 96,
+        width: TILE,
+        height: TILE
+    },
+    "tree_wall_left_bottom": {
+        x: 48,
+        y: 96,
+        width: TILE,
+        height: TILE
+    },
     "snowman": {
         x: 32,
         y: 0,
